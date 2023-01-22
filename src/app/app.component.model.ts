@@ -30,8 +30,3 @@ export interface CurrentUser {
   image: Image;
   username: string;
 }
-
-export interface Data {
-  currentUser: CurrentUser;
-  comments: Array<Comment>;
-}

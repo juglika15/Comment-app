@@ -1,0 +1,34 @@
+<div class="reply" *ngIf="comment.replies.length">
+  <div *ngFor="let reply of comment.replies">
+    <button><img src="../assets/images/icon-minus.svg" alt="minus" /></button
+    ><span class="score">{{ reply.score }}</span
+    ><button><img src="../assets/images/icon-plus.svg" alt="plus" /></button>
+    <img src="{{ reply.user.image.webp }}" alt="profile picture" />
+    <span class="user-name">{{ reply.user.username }}</span>
+    <span class="you" *ngIf="reply.user.username === currentUser.username"
+      >you</span
+    ><button
+      class="btn-reply"
+      *ngIf="reply.user.username !== currentUser.username"
+    >
+      <img src="../assets/images/icon-reply.svg" alt="reply icon" />
+      Reply
+    </button>
+    <button
+      class="btn-delete"
+      *ngIf="reply.user.username === currentUser.username"
+    >
+      <img src="../assets/images/icon-delete.svg" alt="reply icon" />
+      Delete
+    </button>
+    <button
+      class="btn-edit"
+      *ngIf="reply.user.username === currentUser.username"
+    >
+      <img src="../assets/images/icon-edit.svg" alt="reply icon" />
+      Edit
+    </button>
+    <div class="time">{{ reply.createdAt }}</div>
+    <p class="content">{{ reply.content }}</p>
+  </div>
+</div>

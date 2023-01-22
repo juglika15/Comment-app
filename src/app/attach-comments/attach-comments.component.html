@@ -1,0 +1,41 @@
+<div class="comment" *ngFor="let comment of comments">
+  <button><img src="../assets/images/icon-minus.svg" alt="minus" /></button
+  ><span class="score">{{ comment.score }}</span
+  ><button><img src="../assets/images/icon-plus.svg" alt="plus" /></button>
+  <img
+    class="avatar"
+    src="{{ comment.user.image.webp }}"
+    alt="profile picture"
+  />
+  <span class="user-name">{{ comment.user.username }}</span>
+  <span class="you" *ngIf="comment.user.username === currentUser.username"
+    >you</span
+  ><button
+    class="btn-reply"
+    *ngIf="comment.user.username !== currentUser.username"
+  >
+    <img src="../assets/images/icon-reply.svg" alt="reply icon" />
+    Reply
+  </button>
+  <button
+    class="btn-delete"
+    *ngIf="comment.user.username === currentUser.username"
+  >
+    <img src="../assets/images/icon-delete.svg" alt="reply icon" />
+    Delete
+  </button>
+  <button
+    class="btn-edit"
+    *ngIf="comment.user.username === currentUser.username"
+  >
+    <img src="../assets/images/icon-edit.svg" alt="reply icon" />
+    Edit
+  </button>
+  <div class="time">{{ comment.createdAt }}</div>
+  <p class="content">{{ comment.content }}</p>
+  <app-attach-replies
+    [comments]="comments"
+    [currentUser]="currentUser"
+    [comment]="comment"
+  ></app-attach-replies>
+</div>
