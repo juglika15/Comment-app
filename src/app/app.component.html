@@ -1,0 +1,15 @@
+<div *ngFor="let comment of comments; let i = index">
+  <button>-</button>{{ comment.score }}<button>+</button>
+  <img src="{{ comment.user.image.webp }}" alt="" />
+  {{ comment.user.username }} <br />{{ comment.createdAt }} <br />
+  {{ comment.content }}
+  <p *ngIf="comment.replies.length">
+    <span *ngFor="let reply of comment.replies">
+      <button>-</button>{{ reply.score }}<button>+</button>
+      <img src="{{ reply.user.image.webp }}" alt="" />
+      {{ reply.user.username }} <br />{{ reply.createdAt }} <br />
+      {{ reply.content }}<br />
+    </span>
+  </p>
+</div>
+<app-add-comment (addUserComment)="addCommentHandler($event)"></app-add-comment>
