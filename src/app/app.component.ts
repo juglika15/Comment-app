@@ -22,6 +22,15 @@ export class AppComponent {
     localStorage.getItem('idCounter') || JSON.stringify(5)
   );
 
+  updateLocalStorage() {
+    localStorage.setItem('idCounter', JSON.stringify(this.idCounter));
+    this.idCounter = JSON.parse(localStorage.getItem('idCounter')!);
+
+    localStorage.setItem('comments', JSON.stringify(this.comments));
+    this.comments = JSON.parse(localStorage.getItem('comments')!);
+    console.log(this.comments);
+  }
+
   addCommentHandler(input: string) {
     if (input) {
       this.comments.push({
@@ -39,12 +48,7 @@ export class AppComponent {
         replies: [],
       });
       this.idCounter++;
-      localStorage.setItem('idCounter', JSON.stringify(this.idCounter));
-      this.idCounter = JSON.parse(localStorage.getItem('idCounter')!);
-
-      localStorage.setItem('comments', JSON.stringify(this.comments));
-      this.comments = JSON.parse(localStorage.getItem('comments')!);
-      console.log(this.comments);
+      this.updateLocalStorage();
     }
   }
 
@@ -65,12 +69,7 @@ export class AppComponent {
         replyingTo: item.item.replyingTo,
       });
       this.idCounter++;
-      localStorage.setItem('idCounter', JSON.stringify(this.idCounter));
-      this.idCounter = JSON.parse(localStorage.getItem('idCounter')!);
-
-      localStorage.setItem('comments', JSON.stringify(this.comments));
-      this.comments = JSON.parse(localStorage.getItem('comments')!);
-      console.log(this.comments);
+      this.updateLocalStorage();
     }
   }
 
@@ -93,14 +92,15 @@ export class AppComponent {
             replyingTo: item.replyingTo,
           });
           this.idCounter++;
-          localStorage.setItem('idCounter', JSON.stringify(this.idCounter));
-          this.idCounter = JSON.parse(localStorage.getItem('idCounter')!);
-
-          localStorage.setItem('comments', JSON.stringify(this.comments));
-          this.comments = JSON.parse(localStorage.getItem('comments')!);
-          console.log(this.comments);
+          this.updateLocalStorage();
         }
       }
+    }
+  }
+
+  updateTextHandler(content: string) {
+    if (content) {
+      this.updateLocalStorage();
     }
   }
 }

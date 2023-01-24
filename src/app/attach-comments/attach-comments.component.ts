@@ -16,7 +16,7 @@ export class AttachCommentsComponent {
   @Input() currentUser!: CurrentUser;
   @Output() addCommentReply = new EventEmitter<object>();
   @Output() addReplyReply = new EventEmitter<any>();
-
+  @Output() updateComment = new EventEmitter<string>();
   activeComment: ActiveComment | null = null;
   activeCommentType = ActiveCommentType;
   replyHide: boolean = false;
@@ -71,10 +71,28 @@ export class AttachCommentsComponent {
   }
 
   editComment(comment: Comment) {
-    if (comment.id === this.activeComment?.id) {
-    }
     return (
       this.activeComment?.type === ActiveCommentType.editing &&
+      this.activeComment.id === comment.id
+    );
+  }
+
+  updatingComment(content: string) {
+    this.updateComment.emit(content);
+    this.activeComment = null;
+  }
+
+  @Output() updateReply = new EventEmitter<string>();
+  updatingReply(content: string) {
+    this.updateReply.emit(content);
+  }
+
+  cancelDelete() {}
+  delete() {}
+
+  deleteComment(comment: Comment) {
+    return (
+      this.activeComment?.type === ActiveCommentType.deleting &&
       this.activeComment.id === comment.id
     );
   }

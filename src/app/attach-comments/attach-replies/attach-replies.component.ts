@@ -24,6 +24,7 @@ export class AttachRepliesComponent {
   @Input() replyHide: boolean = false;
   @Output() replyHider = new EventEmitter<boolean>();
   @Input() replyComentInput!: string;
+
   replyReplyInput: string = '';
 
   btnClick(btn: string, reply: Reply, index: number) {
@@ -100,4 +101,20 @@ export class AttachRepliesComponent {
       this.activeReply.id === reply.id
     );
   }
+
+  @Output() updatingReply = new EventEmitter<string>();
+  updateReply(content: string) {
+    this.updatingReply.emit(content);
+    this.activeReply = null;
+  }
+
+  deleteReply(reply: Reply) {
+    return (
+      this.activeReply?.type === ActiveCommentType.deleting &&
+      this.activeReply.id === reply.id
+    );
+  }
+  cancelDelete() {}
+
+  delete() {}
 }

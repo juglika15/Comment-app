@@ -3,5 +3,7 @@
   [currentUser]="currentUser"
   (addCommentReply)="addCommentReplyHandler($event)"
   (addReplyReply)="addReplyReplyHandler($event)"
+  (updateComment)="updateTextHandler($event)"
+  (updateReply)="updateTextHandler($event)"
 ></app-attach-comments>
 <app-add-comment (addUserComment)="addCommentHandler($event)"></app-add-comment>
