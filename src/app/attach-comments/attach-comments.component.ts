@@ -17,6 +17,7 @@ export class AttachCommentsComponent {
   @Output() addCommentReply = new EventEmitter<object>();
   @Output() addReplyReply = new EventEmitter<any>();
   @Output() updateComment = new EventEmitter<string>();
+
   activeComment: ActiveComment | null = null;
   activeCommentType = ActiveCommentType;
   replyHide: boolean = false;
@@ -87,8 +88,19 @@ export class AttachCommentsComponent {
     this.updateReply.emit(content);
   }
 
-  cancelDelete() {}
-  delete() {}
+  cancelDelete() {
+    this.activeComment = null;
+  }
+
+  @Output() delete = new EventEmitter<number>();
+  @Output() deleteRep = new EventEmitter<object>();
+
+  deleteReply(item: object) {
+    this.deleteRep.emit(item);
+  }
+  deleteClick(index: number) {
+    this.delete.emit(index);
+  }
 
   deleteComment(comment: Comment) {
     return (

@@ -30,7 +30,7 @@
           comment and can't be undone.
         </p>
         <button (click)="cancelDelete()">No, Cancel</button>
-        <button (click)="delete()">Yes, Delete</button>
+        <button (click)="delete(comment.id, i)">Yes, Delete</button>
       </div>
     </div>
     <div *ngIf="reply.user.username === currentUser.username">

@@ -114,7 +114,15 @@ export class AttachRepliesComponent {
       this.activeReply.id === reply.id
     );
   }
-  cancelDelete() {}
+  cancelDelete() {
+    this.activeReply = null;
+  }
 
-  delete() {}
+  @Output() deletingReply = new EventEmitter<object>();
+  delete(id: number, index: number) {
+    this.deletingReply.emit({
+      id: id,
+      index: index,
+    });
+  }
 }

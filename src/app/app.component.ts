@@ -103,4 +103,17 @@ export class AppComponent {
       this.updateLocalStorage();
     }
   }
+
+  deleteHandler(index: number) {
+    this.comments.splice(index, 1);
+    this.updateLocalStorage();
+  }
+
+  deleteRepHandler(item: any) {
+    for (const comment of this.comments) {
+      if (comment.id === item.id) {
+        comment.replies.splice(item.index, 1);
+      }
+    }
+  }
 }

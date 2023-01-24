@@ -28,7 +28,7 @@
         comment and can't be undone.
       </p>
       <button (click)="cancelDelete()">No, Cancel</button>
-      <button (click)="delete()">Yes, Delete</button>
+      <button (click)="deleteClick(i)">Yes, Delete</button>
     </div>
   </div>
   <div *ngIf="comment.user.username === currentUser.username">
@@ -57,5 +57,6 @@
     (addRepReply)="addRepReply($event)"
     [replyComentInput]="replyComentInput"
     (updatingReply)="updatingReply($event)"
+    (deletingReply)="deleteReply($event)"
   ></app-attach-replies>
 </div>
