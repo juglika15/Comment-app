@@ -30,3 +30,16 @@ export interface CurrentUser {
   image: Image;
   username: string;
 }
+
+export enum ActiveCommentType {
+  replying = 'replying',
+  editing = 'editing',
+  deleting = 'deleting',
+}
+
+export interface ActiveComment {
+  type: ActiveCommentType;
+  id: number;
+  replyingTo: string;
+  index: number;
+}

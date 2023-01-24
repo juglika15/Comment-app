@@ -1,4 +1,4 @@
-<div class="comment" *ngFor="let comment of comments">
+<div class="comment" *ngFor="let comment of comments; let i = index">
   <button><img src="../assets/images/icon-minus.svg" alt="minus" /></button
   ><span class="score">{{ comment.score }}</span
   ><button><img src="../assets/images/icon-plus.svg" alt="plus" /></button>
@@ -10,32 +10,42 @@
   <span class="user-name">{{ comment.user.username }}</span>
   <span class="you" *ngIf="comment.user.username === currentUser.username"
     >you</span
-  ><button
-    class="btn-reply"
-    *ngIf="comment.user.username !== currentUser.username"
   >
-    <img src="../assets/images/icon-reply.svg" alt="reply icon" />
-    Reply
-  </button>
-  <button
-    class="btn-delete"
-    *ngIf="comment.user.username === currentUser.username"
-  >
-    <img src="../assets/images/icon-delete.svg" alt="reply icon" />
-    Delete
-  </button>
-  <button
-    class="btn-edit"
-    *ngIf="comment.user.username === currentUser.username"
-  >
-    <img src="../assets/images/icon-edit.svg" alt="reply icon" />
-    Edit
-  </button>
+  <div *ngIf="comment.user.username !== currentUser.username">
+    <button class="btn-reply" (click)="btnClick('reply', comment, i)">
+      <img src="../assets/images/icon-reply.svg" alt="reply icon" />
+      Reply
+    </button>
+  </div>
+  <div *ngIf="comment.user.username === currentUser.username">
+    <button class="btn-delete" (click)="btnClick('delete', comment, i)">
+      <img src="../assets/images/icon-delete.svg" alt="reply icon" />
+      Delete
+    </button>
+  </div>
+  <div *ngIf="comment.user.username === currentUser.username">
+    <button class="btn-edit" (click)="btnClick('edit', comment, i)">
+      <img src="../assets/images/icon-edit.svg" alt="reply icon" />
+      Edit
+    </button>
+  </div>
   <div class="time">{{ comment.createdAt }}</div>
-  <p class="content">{{ comment.content }}</p>
+  <div *ngIf="!editComment(comment)">
+    <p class="content">{{ comment.content }}</p>
+  </div>
+  <div *ngIf="editComment(comment)">
+    <input type="text" [(ngModel)]="comment.content" />
+  </div>
   <app-attach-replies
     [comments]="comments"
     [currentUser]="currentUser"
     [comment]="comment"
+    [activeComment]="activeComment"
+    (hideComReply)="hideComReplyHandler()"
+    [replyHide]="replyHide"
+    (replyHider)="replyHiderHandler()"
+    (addComReply)="addComReply($event)"
+    (addRepReply)="addRepReply($event)"
+    [replyComentInput]="replyComentInput"
   ></app-attach-replies>
 </div>

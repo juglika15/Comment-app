@@ -18,26 +18,89 @@ export class AppComponent {
     localStorage.getItem('currentUser') || JSON.stringify(dataJSON.currentUser)
   );
 
-  idCounter = 5;
+  idCounter: number = JSON.parse(
+    localStorage.getItem('idCounter') || JSON.stringify(5)
+  );
 
   addCommentHandler(input: string) {
-    this.comments.push({
-      id: this.comments[this.comments.length - 1].id + 1,
-      content: input,
-      createdAt: 'now',
-      score: 0,
-      user: {
-        image: {
-          png: this.currentUser.image.png,
-          webp: this.currentUser.image.webp,
+    if (input) {
+      this.comments.push({
+        id: this.idCounter,
+        content: input,
+        createdAt: 'now',
+        score: 0,
+        user: {
+          image: {
+            png: this.currentUser.image.png,
+            webp: this.currentUser.image.webp,
+          },
+          username: this.currentUser.username,
         },
-        username: this.currentUser.username,
-      },
-      replies: [],
-    });
-    this.idCounter++;
-    localStorage.setItem('comments', JSON.stringify(this.comments));
-    this.comments = JSON.parse(localStorage.getItem('comments')!);
-    console.log(this.comments);
+        replies: [],
+      });
+      this.idCounter++;
+      localStorage.setItem('idCounter', JSON.stringify(this.idCounter));
+      this.idCounter = JSON.parse(localStorage.getItem('idCounter')!);
+
+      localStorage.setItem('comments', JSON.stringify(this.comments));
+      this.comments = JSON.parse(localStorage.getItem('comments')!);
+      console.log(this.comments);
+    }
+  }
+
+  addCommentReplyHandler(item: any) {
+    if (item.item.reply !== `@${item.item.replyingTo} `) {
+      this.comments[item.index].replies.push({
+        id: this.idCounter,
+        content: item.item.reply,
+        createdAt: 'now',
+        score: 0,
+        user: {
+          image: {
+            png: this.currentUser.image.png,
+            webp: this.currentUser.image.webp,
+          },
+          username: this.currentUser.username,
+        },
+        replyingTo: item.item.replyingTo,
+      });
+      this.idCounter++;
+      localStorage.setItem('idCounter', JSON.stringify(this.idCounter));
+      this.idCounter = JSON.parse(localStorage.getItem('idCounter')!);
+
+      localStorage.setItem('comments', JSON.stringify(this.comments));
+      this.comments = JSON.parse(localStorage.getItem('comments')!);
+      console.log(this.comments);
+    }
+  }
+
+  addReplyReplyHandler(item: any) {
+    if (item.reply !== `@${item.replyingTo} `) {
+      for (const comment of this.comments) {
+        if (comment.replies[item.index]?.id === item.id) {
+          comment.replies.push({
+            id: this.idCounter,
+            content: item.reply,
+            createdAt: 'now',
+            score: 0,
+            user: {
+              image: {
+                png: this.currentUser.image.png,
+                webp: this.currentUser.image.webp,
+              },
+              username: this.currentUser.username,
+            },
+            replyingTo: item.replyingTo,
+          });
+          this.idCounter++;
+          localStorage.setItem('idCounter', JSON.stringify(this.idCounter));
+          this.idCounter = JSON.parse(localStorage.getItem('idCounter')!);
+
+          localStorage.setItem('comments', JSON.stringify(this.comments));
+          this.comments = JSON.parse(localStorage.getItem('comments')!);
+          console.log(this.comments);
+        }
+      }
+    }
   }
 }

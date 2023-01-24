@@ -1,5 +1,10 @@
+<div *ngIf="replyComment()">
+  <img src="{{ currentUser.image.webp }}" alt="" />
+  <input type="text" [(ngModel)]="replyComentInput" />
+  <button (click)="addCommentReply()">Reply</button>
+</div>
 <div class="reply" *ngIf="comment.replies.length">
-  <div *ngFor="let reply of comment.replies">
+  <div *ngFor="let reply of comment.replies; let i = index">
     <button><img src="../assets/images/icon-minus.svg" alt="minus" /></button
     ><span class="score">{{ reply.score }}</span
     ><button><img src="../assets/images/icon-plus.svg" alt="plus" /></button>
@@ -7,28 +12,31 @@
     <span class="user-name">{{ reply.user.username }}</span>
     <span class="you" *ngIf="reply.user.username === currentUser.username"
       >you</span
-    ><button
-      class="btn-reply"
-      *ngIf="reply.user.username !== currentUser.username"
     >
-      <img src="../assets/images/icon-reply.svg" alt="reply icon" />
-      Reply
-    </button>
-    <button
-      class="btn-delete"
-      *ngIf="reply.user.username === currentUser.username"
-    >
-      <img src="../assets/images/icon-delete.svg" alt="reply icon" />
-      Delete
-    </button>
-    <button
-      class="btn-edit"
-      *ngIf="reply.user.username === currentUser.username"
-    >
-      <img src="../assets/images/icon-edit.svg" alt="reply icon" />
-      Edit
-    </button>
+    <div *ngIf="reply.user.username !== currentUser.username">
+      <button class="btn-reply" (click)="btnClick('reply', reply, i)">
+        <img src="../assets/images/icon-reply.svg" alt="reply icon" />
+        Reply
+      </button>
+    </div>
+    <div *ngIf="reply.user.username === currentUser.username">
+      <button class="btn-delete">
+        <img src="../assets/images/icon-delete.svg" alt="reply icon" />
+        Delete
+      </button>
+    </div>
+    <div *ngIf="reply.user.username === currentUser.username">
+      <button class="btn-edit">
+        <img src="../assets/images/icon-edit.svg" alt="reply icon" />
+        Edit
+      </button>
+    </div>
     <div class="time">{{ reply.createdAt }}</div>
     <p class="content">{{ reply.content }}</p>
+    <div *ngIf="!replyHide && replyReply(reply)">
+      <img src="{{ currentUser.image.webp }}" alt="" />
+      <input type="text" [(ngModel)]="replyReplyInput" />
+      <button (click)="addReplyReply()">Reply</button>
+    </div>
   </div>
 </div>
