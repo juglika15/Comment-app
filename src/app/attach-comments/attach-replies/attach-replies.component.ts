@@ -91,4 +91,13 @@ export class AttachRepliesComponent {
     this.replyReplyInput = '';
     this.activeReply = null;
   }
+
+  editReply(reply: Reply) {
+    if (reply.id === this.activeReply?.id) {
+    }
+    return (
+      this.activeReply?.type === ActiveCommentType.editing &&
+      this.activeReply.id === reply.id
+    );
+  }
 }

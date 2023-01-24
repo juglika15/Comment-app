@@ -26,13 +26,18 @@
       </button>
     </div>
     <div *ngIf="reply.user.username === currentUser.username">
-      <button class="btn-edit">
+      <button class="btn-edit" (click)="btnClick('edit', reply, i)">
         <img src="../assets/images/icon-edit.svg" alt="reply icon" />
         Edit
       </button>
     </div>
     <div class="time">{{ reply.createdAt }}</div>
-    <p class="content">{{ reply.content }}</p>
+    <div *ngIf="!editReply(reply)">
+      <p class="content">{{ reply.content }}</p>
+    </div>
+    <div *ngIf="editReply(reply)">
+      <input type="text" [(ngModel)]="reply.content" />
+    </div>
     <div *ngIf="!replyHide && replyReply(reply)">
       <img src="{{ currentUser.image.webp }}" alt="" />
       <input type="text" [(ngModel)]="replyReplyInput" />

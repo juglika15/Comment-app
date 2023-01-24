@@ -16,7 +16,6 @@ export class AttachCommentsComponent {
   @Input() currentUser!: CurrentUser;
   @Output() addCommentReply = new EventEmitter<object>();
   @Output() addReplyReply = new EventEmitter<any>();
-  editInput: string = '';
 
   activeComment: ActiveComment | null = null;
   activeCommentType = ActiveCommentType;
