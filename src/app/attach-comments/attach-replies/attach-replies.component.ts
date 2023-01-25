@@ -30,21 +30,21 @@ export class AttachRepliesComponent {
   btnClick(btn: string, reply: Reply, index: number) {
     if (btn === 'reply')
       this.activeReply = {
-        type: ActiveCommentType.replying,
+        type: ActiveCommentType.Replying,
         id: reply.id,
         replyingTo: reply.user.username,
         index: index,
       };
     if (btn === 'edit')
       this.activeReply = {
-        type: ActiveCommentType.editing,
+        type: ActiveCommentType.Editing,
         id: reply.id,
         replyingTo: reply.user.username,
         index: index,
       };
     if (btn === 'delete')
       this.activeReply = {
-        type: ActiveCommentType.deleting,
+        type: ActiveCommentType.Deleting,
         id: reply.id,
         replyingTo: reply.user.username,
         index: index,
@@ -61,7 +61,7 @@ export class AttachRepliesComponent {
     if (this.comment.id === this.activeComment?.id) {
     }
     return (
-      this.activeComment?.type === ActiveCommentType.replying &&
+      this.activeComment?.type === ActiveCommentType.Replying &&
       this.activeComment.id === this.comment.id
     );
   }
@@ -70,7 +70,7 @@ export class AttachRepliesComponent {
     if (reply.id === this.activeReply?.id) {
     }
     return (
-      this.activeReply?.type === ActiveCommentType.replying &&
+      this.activeReply?.type === ActiveCommentType.Replying &&
       this.activeReply.id === reply.id
     );
   }
@@ -97,7 +97,7 @@ export class AttachRepliesComponent {
     if (reply.id === this.activeReply?.id) {
     }
     return (
-      this.activeReply?.type === ActiveCommentType.editing &&
+      this.activeReply?.type === ActiveCommentType.Editing &&
       this.activeReply.id === reply.id
     );
   }
@@ -110,7 +110,7 @@ export class AttachRepliesComponent {
 
   deleteReply(reply: Reply) {
     return (
-      this.activeReply?.type === ActiveCommentType.deleting &&
+      this.activeReply?.type === ActiveCommentType.Deleting &&
       this.activeReply.id === reply.id
     );
   }

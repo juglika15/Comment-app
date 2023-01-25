@@ -116,4 +116,15 @@ export class AppComponent {
       }
     }
   }
+
+  scoreMinusHandler(index: number) {
+    this.comments[index].score--;
+    this.comments.sort((a: Comment, b: Comment) => b.score - a.score);
+    this.updateLocalStorage();
+  }
+  scorePlusHandler(index: number) {
+    this.comments[index].score++;
+    this.comments.sort((a: Comment, b: Comment) => b.score - a.score);
+    this.updateLocalStorage();
+  }
 }

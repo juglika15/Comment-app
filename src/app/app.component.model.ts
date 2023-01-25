@@ -32,9 +32,9 @@ export interface CurrentUser {
 }
 
 export enum ActiveCommentType {
-  replying = 'replying',
-  editing = 'editing',
-  deleting = 'deleting',
+  Replying = 'replying',
+  Editing = 'editing',
+  Deleting = 'deleting',
 }
 
 export interface ActiveComment {

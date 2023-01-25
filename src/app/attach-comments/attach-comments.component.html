@@ -1,7 +1,10 @@
 <div class="comment" *ngFor="let comment of comments; let i = index">
-  <button><img src="../assets/images/icon-minus.svg" alt="minus" /></button
+  <button (click)="scoreDown(comment.score, i)">
+    <img src="../assets/images/icon-minus.svg" alt="minus" /></button
   ><span class="score">{{ comment.score }}</span
-  ><button><img src="../assets/images/icon-plus.svg" alt="plus" /></button>
+  ><button (click)="scoreUp(i)">
+    <img src="../assets/images/icon-plus.svg" alt="plus" />
+  </button>
   <img
     class="avatar"
     src="{{ comment.user.image.webp }}"

@@ -27,7 +27,7 @@ export class AttachCommentsComponent {
   btnClick(btn: string, comment: Comment, index: number) {
     if (btn === 'reply') {
       this.activeComment = {
-        type: this.activeCommentType.replying,
+        type: this.activeCommentType.Replying,
         id: comment.id,
         replyingTo: comment.user.username,
         index: index,
@@ -35,7 +35,7 @@ export class AttachCommentsComponent {
     }
     if (btn === 'edit') {
       this.activeComment = {
-        type: this.activeCommentType.editing,
+        type: this.activeCommentType.Editing,
         id: comment.id,
         replyingTo: comment.user.username,
         index: index,
@@ -43,7 +43,7 @@ export class AttachCommentsComponent {
     }
     if (btn === 'delete') {
       this.activeComment = {
-        type: this.activeCommentType.deleting,
+        type: this.activeCommentType.Deleting,
         id: comment.id,
         replyingTo: comment.user.username,
         index: index,
@@ -73,7 +73,7 @@ export class AttachCommentsComponent {
 
   editComment(comment: Comment) {
     return (
-      this.activeComment?.type === ActiveCommentType.editing &&
+      this.activeComment?.type === ActiveCommentType.Editing &&
       this.activeComment.id === comment.id
     );
   }
@@ -104,8 +104,21 @@ export class AttachCommentsComponent {
 
   deleteComment(comment: Comment) {
     return (
-      this.activeComment?.type === ActiveCommentType.deleting &&
+      this.activeComment?.type === ActiveCommentType.Deleting &&
       this.activeComment.id === comment.id
     );
+  }
+
+  @Output() scoreMinus = new EventEmitter();
+  @Output() scorePlus = new EventEmitter();
+
+  scoreDown(score: number, index: number) {
+    if (score) {
+      this.scoreMinus.emit(index);
+    }
+  }
+
+  scoreUp(index: number) {
+    this.scorePlus.emit(index);
   }
 }
