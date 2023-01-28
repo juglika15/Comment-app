@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   Comment,
   CurrentUser,
-  ActiveComment,
-  ActiveCommentType,
+  ActiveSection,
+  ActivityType,
 } from '../app.component.model';
 @Component({
   selector: 'app-attach-comments',
@@ -11,59 +11,32 @@ import {
   styleUrls: ['./attach-comments.component.scss'],
 })
 export class AttachCommentsComponent {
-  contructor() {}
   @Input() comments!: Array<Comment>;
   @Input() currentUser!: CurrentUser;
+
   @Output() addCommentReply = new EventEmitter<object>();
   @Output() addReplyReply = new EventEmitter<any>();
   @Output() updateComment = new EventEmitter<string>();
 
-  activeComment: ActiveComment | null = null;
-  activeCommentType = ActiveCommentType;
-  replyHide: boolean = false;
+  activeSection: ActiveSection | null = null;
+  activityType = ActivityType;
 
   replyComentInput: string = '';
 
-  btnClick(btn: string, comment: Comment, index: number) {
-    if (btn === 'reply') {
-      this.activeComment = {
-        type: this.activeCommentType.Replying,
-        id: comment.id,
-        replyingTo: comment.user.username,
-        index: index,
-      };
-    }
-    if (btn === 'edit') {
-      this.activeComment = {
-        type: this.activeCommentType.Editing,
-        id: comment.id,
-        replyingTo: comment.user.username,
-        index: index,
-      };
-    }
-    if (btn === 'delete') {
-      this.activeComment = {
-        type: this.activeCommentType.Deleting,
-        id: comment.id,
-        replyingTo: comment.user.username,
-        index: index,
-      };
-    }
-    this.replyHide = true;
+  btnClick(type: ActivityType, comment: Comment, index: number) {
+    this.activeSection = {
+      type: type,
+      id: comment.id,
+      replyingTo: comment.user.username,
+      index: index,
+    };
 
     this.replyComentInput = `@${comment.user.username} `;
   }
 
-  hideComReplyHandler() {
-    this.activeComment = null;
-  }
-  replyHiderHandler() {
-    this.replyHide = false;
-  }
-
   addComReply(item: object) {
-    this.addCommentReply.emit({ item: item, index: this.activeComment?.index });
-    this.activeComment = null;
+    this.addCommentReply.emit({ item: item, index: this.activeSection?.index });
+    this.activeSection = null;
     this.replyComentInput = '';
   }
 
@@ -73,14 +46,14 @@ export class AttachCommentsComponent {
 
   editComment(comment: Comment) {
     return (
-      this.activeComment?.type === ActiveCommentType.Editing &&
-      this.activeComment.id === comment.id
+      this.activeSection?.type === ActivityType.Edit &&
+      this.activeSection.id === comment.id
     );
   }
 
   updatingComment(content: string) {
     this.updateComment.emit(content);
-    this.activeComment = null;
+    this.activeSection = null;
   }
 
   @Output() updateReply = new EventEmitter<string>();
@@ -89,7 +62,7 @@ export class AttachCommentsComponent {
   }
 
   cancelDelete() {
-    this.activeComment = null;
+    this.activeSection = null;
   }
 
   @Output() delete = new EventEmitter<number>();
@@ -104,8 +77,8 @@ export class AttachCommentsComponent {
 
   deleteComment(comment: Comment) {
     return (
-      this.activeComment?.type === ActiveCommentType.Deleting &&
-      this.activeComment.id === comment.id
+      this.activeSection?.type === ActivityType.Delete &&
+      this.activeSection.id === comment.id
     );
   }
 

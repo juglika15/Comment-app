@@ -31,14 +31,14 @@ export interface CurrentUser {
   username: string;
 }
 
-export enum ActiveCommentType {
-  Replying = 'replying',
-  Editing = 'editing',
-  Deleting = 'deleting',
+export enum ActivityType {
+  Reply = 'Reply',
+  Edit = 'Edit',
+  Delete = 'Delete',
 }
 
-export interface ActiveComment {
-  type: ActiveCommentType;
+export interface ActiveSection {
+  type: ActivityType;
   id: number;
   replyingTo: string;
   index: number;

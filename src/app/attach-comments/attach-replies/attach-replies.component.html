@@ -14,13 +14,19 @@
       >you</span
     >
     <div *ngIf="reply.user.username !== currentUser.username">
-      <button class="btn-reply" (click)="btnClick('reply', reply, i)">
+      <button
+        class="btn-reply"
+        (click)="btnClick(activityType.Reply, reply, i)"
+      >
         <img src="../assets/images/icon-reply.svg" alt="reply icon" />
         Reply
       </button>
     </div>
     <div *ngIf="reply.user.username === currentUser.username">
-      <button class="btn-delete" (click)="btnClick('delete', reply, i)">
+      <button
+        class="btn-delete"
+        (click)="btnClick(activityType.Delete, reply, i)"
+      >
         <img src="../assets/images/icon-delete.svg" alt="delete icon" />
         Delete
       </button>
@@ -34,7 +40,7 @@
       </div>
     </div>
     <div *ngIf="reply.user.username === currentUser.username">
-      <button class="btn-edit" (click)="btnClick('edit', reply, i)">
+      <button class="btn-edit" (click)="btnClick(activityType.Edit, reply, i)">
         <img src="../assets/images/icon-edit.svg" alt="edit icon" />
         Edit
       </button>
@@ -47,7 +53,7 @@
       <input type="text" [(ngModel)]="reply.content" />
       <button (click)="updateReply(reply.content)">Update</button>
     </div>
-    <div *ngIf="!replyHide && replyReply(reply)" class="reply repreply">
+    <div *ngIf="replyReply(reply)" class="reply repreply">
       <img src="{{ currentUser.image.webp }}" alt="" />
       <input type="text" [(ngModel)]="replyReplyInput" />
       <button (click)="addReplyReply()">Reply</button>

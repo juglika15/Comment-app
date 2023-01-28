@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   Comment,
   CurrentUser,
-  ActiveComment,
-  ActiveCommentType,
+  ActiveSection,
+  ActivityType,
   Reply,
 } from 'src/app/app.component.model';
 
@@ -16,106 +16,86 @@ export class AttachRepliesComponent {
   @Input() comments!: Array<Comment>;
   @Input() currentUser!: CurrentUser;
   @Input() comment!: Comment;
-  @Input() activeComment!: ActiveComment | null;
-  activeReply: ActiveComment | null = null;
-  @Output() hideComReply = new EventEmitter();
+
+  @Input() activeSection!: ActiveSection | null;
+  activityType = ActivityType;
+
   @Output() addComReply = new EventEmitter<object>();
   @Output() addRepReply = new EventEmitter<object>();
-  @Input() replyHide: boolean = false;
-  @Output() replyHider = new EventEmitter<boolean>();
   @Input() replyComentInput!: string;
 
   replyReplyInput: string = '';
 
-  btnClick(btn: string, reply: Reply, index: number) {
-    if (btn === 'reply')
-      this.activeReply = {
-        type: ActiveCommentType.Replying,
-        id: reply.id,
-        replyingTo: reply.user.username,
-        index: index,
-      };
-    if (btn === 'edit')
-      this.activeReply = {
-        type: ActiveCommentType.Editing,
-        id: reply.id,
-        replyingTo: reply.user.username,
-        index: index,
-      };
-    if (btn === 'delete')
-      this.activeReply = {
-        type: ActiveCommentType.Deleting,
-        id: reply.id,
-        replyingTo: reply.user.username,
-        index: index,
-      };
-
-    this.hideComReply.emit();
-    this.replyComentInput = '';
-    this.replyHider.emit();
+  btnClick(type: ActivityType, reply: Reply, index: number) {
+    this.activeSection = {
+      type: type,
+      id: reply.id,
+      replyingTo: reply.user.username,
+      index: index,
+    };
 
     this.replyReplyInput = `@${reply.user.username} `;
   }
 
   replyComment() {
-    if (this.comment.id === this.activeComment?.id) {
+    if (this.comment.id === this.activeSection?.id) {
     }
     return (
-      this.activeComment?.type === ActiveCommentType.Replying &&
-      this.activeComment.id === this.comment.id
+      this.activeSection?.type === ActivityType.Reply &&
+      this.activeSection.id === this.comment.id
     );
   }
 
   replyReply(reply: Reply) {
-    if (reply.id === this.activeReply?.id) {
+    if (reply.id === this.activeSection?.id) {
     }
     return (
-      this.activeReply?.type === ActiveCommentType.Replying &&
-      this.activeReply.id === reply.id
+      this.activeSection?.type === ActivityType.Reply &&
+      this.activeSection.id === reply.id
     );
   }
 
   addCommentReply() {
     this.addComReply.emit({
       reply: this.replyComentInput,
-      replyingTo: this.activeComment?.replyingTo,
+      replyingTo: this.activeSection?.replyingTo,
     });
   }
 
   addReplyReply() {
     this.addRepReply.emit({
       reply: this.replyReplyInput,
-      replyingTo: this.activeReply?.replyingTo,
-      index: this.activeReply?.index,
-      id: this.activeReply?.id,
+      replyingTo: this.activeSection?.replyingTo,
+      index: this.activeSection?.index,
+      id: this.activeSection?.id,
     });
     this.replyReplyInput = '';
-    this.activeReply = null;
+    this.activeSection = null;
   }
 
   editReply(reply: Reply) {
-    if (reply.id === this.activeReply?.id) {
+    if (reply.id === this.activeSection?.id) {
     }
     return (
-      this.activeReply?.type === ActiveCommentType.Editing &&
-      this.activeReply.id === reply.id
+      this.activeSection?.type === ActivityType.Edit &&
+      this.activeSection.id === reply.id
     );
   }
 
   @Output() updatingReply = new EventEmitter<string>();
   updateReply(content: string) {
     this.updatingReply.emit(content);
-    this.activeReply = null;
+    this.activeSection = null;
   }
 
   deleteReply(reply: Reply) {
     return (
-      this.activeReply?.type === ActiveCommentType.Deleting &&
-      this.activeReply.id === reply.id
+      this.activeSection?.type === ActivityType.Delete &&
+      this.activeSection.id === reply.id
     );
   }
   cancelDelete() {
-    this.activeReply = null;
+    this.activeSection = null;
   }
 
   @Output() deletingReply = new EventEmitter<object>();

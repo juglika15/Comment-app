@@ -15,13 +15,19 @@
     >you</span
   >
   <div *ngIf="comment.user.username !== currentUser.username">
-    <button class="btn-reply" (click)="btnClick('reply', comment, i)">
+    <button
+      class="btn-reply"
+      (click)="btnClick(activityType.Reply, comment, i)"
+    >
       <img src="../assets/images/icon-reply.svg" alt="reply icon" />
       Reply
     </button>
   </div>
   <div *ngIf="comment.user.username === currentUser.username">
-    <button class="btn-delete" (click)="btnClick('delete', comment, i)">
+    <button
+      class="btn-delete"
+      (click)="btnClick(activityType.Delete, comment, i)"
+    >
       <img src="../assets/images/icon-delete.svg" alt="reply icon" />
       Delete
     </button>
@@ -35,7 +41,7 @@
     </div>
   </div>
   <div *ngIf="comment.user.username === currentUser.username">
-    <button class="btn-edit" (click)="btnClick('edit', comment, i)">
+    <button class="btn-edit" (click)="btnClick(activityType.Edit, comment, i)">
       <img src="../assets/images/icon-edit.svg" alt="reply icon" />
       Edit
     </button>
@@ -52,10 +58,7 @@
     [comments]="comments"
     [currentUser]="currentUser"
     [comment]="comment"
-    [activeComment]="activeComment"
-    (hideComReply)="hideComReplyHandler()"
-    [replyHide]="replyHide"
-    (replyHider)="replyHiderHandler()"
+    [activeSection]="activeSection"
     (addComReply)="addComReply($event)"
     (addRepReply)="addRepReply($event)"
     [replyComentInput]="replyComentInput"
