@@ -92,10 +92,11 @@ export class AttachRepliesComponent {
   }
 
   // attach edit input
-  editReply(reply: Reply) {
+  editReply(reply: Reply, comment: Comment) {
     return (
       this.activeSection?.type === ActivityType.Edit &&
-      this.activeSection.id === reply.id
+      this.activeSection.id === reply.id &&
+      this.comments.indexOf(comment) === this.commentIndex
     );
   }
 

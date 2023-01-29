@@ -56,10 +56,10 @@
       </button>
     </div>
     <div class="time">{{ reply.createdAt }}</div>
-    <div *ngIf="!editReply(reply)">
+    <div *ngIf="!editReply(reply, comment)">
       <p class="content">{{ reply.content }}</p>
     </div>
-    <div *ngIf="editReply(reply)">
+    <div *ngIf="editReply(reply, comment)">
       <input type="text" [(ngModel)]="reply.content" />
       <button (click)="updateReply(reply.content)">Update</button>
     </div>

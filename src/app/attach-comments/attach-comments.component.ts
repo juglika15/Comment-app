@@ -60,7 +60,8 @@ export class AttachCommentsComponent {
   editComment(comment: Comment) {
     return (
       this.activeSection?.type === ActivityType.Edit &&
-      this.activeSection.id === comment.id
+      this.activeSection.id === comment.id &&
+      this.comments.indexOf(comment) === this.commentIndex
     );
   }
 
