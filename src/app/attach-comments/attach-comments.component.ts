@@ -5,7 +5,10 @@ import {
   ActiveSection,
   ActivityType,
   AddReply,
-  ReplyType,
+  ContentType,
+  DeleteContent,
+  ScoreChangeType,
+  ScoreChange,
 } from '../app.component.model';
 @Component({
   selector: 'app-attach-comments',
@@ -44,7 +47,7 @@ export class AttachCommentsComponent {
   @Output() addReply = new EventEmitter<AddReply>();
 
   addingReply(item: AddReply) {
-    if (item.replyType === ReplyType.Commnet) {
+    if (item.contentType === ContentType.Commnet) {
       item.index = this.activeSection!.index;
     }
     this.addReply.emit(item);
@@ -60,6 +63,7 @@ export class AttachCommentsComponent {
     );
   }
 
+  // emit edited content
   updatingComment(content: string) {
     this.updateComment.emit(content);
     this.activeSection = null;
@@ -70,37 +74,55 @@ export class AttachCommentsComponent {
     this.updateReply.emit(content);
   }
 
-  cancelDelete() {
-    this.activeSection = null;
-  }
-
-  @Output() delete = new EventEmitter<number>();
-  @Output() deleteRep = new EventEmitter<object>();
-
-  deleteReply(item: object) {
-    this.deleteRep.emit(item);
-  }
-  deleteClick(index: number) {
-    this.delete.emit(index);
-  }
-
-  deleteComment(comment: Comment) {
+  // attach delete input
+  deleteInput(comment: Comment) {
     return (
       this.activeSection?.type === ActivityType.Delete &&
       this.activeSection.id === comment.id
     );
   }
 
-  @Output() scoreMinus = new EventEmitter();
-  @Output() scorePlus = new EventEmitter();
-
-  scoreDown(score: number, index: number) {
-    if (score) {
-      this.scoreMinus.emit(index);
-    }
+  cancelDelete() {
+    this.activeSection = null;
   }
 
-  scoreUp(index: number) {
-    this.scorePlus.emit(index);
+  @Output() delete = new EventEmitter<DeleteContent>();
+
+  deleteReply(item: DeleteContent) {
+    this.delete.emit(item);
+  }
+  deleteComment() {
+    this.delete.emit({
+      contentType: ContentType.Commnet,
+      id: this.activeSection!.id,
+      index: this.activeSection!.index,
+    });
+  }
+
+  // Score change
+
+  @Output() scoreChange = new EventEmitter<ScoreChange>();
+
+  scoreChangeType = ScoreChangeType;
+
+  commentScoreChange(
+    index: number,
+    score: number,
+    scoreChangeType: ScoreChangeType
+  ) {
+    const item: ScoreChange = {
+      contentType: ContentType.Commnet,
+      index: index,
+      type: ScoreChangeType.Plus,
+      id: -1,
+    };
+    if (score && scoreChangeType === ScoreChangeType.Minus) {
+      item.type = ScoreChangeType.Minus;
+    }
+    this.scoreChange.emit(item);
+  }
+
+  replyScoreHandler(item: ScoreChange) {
+    this.scoreChange.emit(item);
   }
 }

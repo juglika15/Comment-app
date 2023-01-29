@@ -44,15 +44,33 @@ export interface ActiveSection {
   index: number;
 }
 
-export enum ReplyType {
+export enum ContentType {
   Reply = 'Reply',
   Commnet = 'Comment',
 }
 
 export interface AddReply {
-  replyType: ReplyType;
+  contentType: ContentType;
   reply: string;
   replyingTo: string;
+  index: number;
+  id: number;
+}
+
+export interface DeleteContent {
+  contentType: ContentType;
+  index: number;
+  id: number;
+}
+
+export enum ScoreChangeType {
+  Minus = 'Minus',
+  Plus = 'Plus',
+}
+
+export interface ScoreChange {
+  contentType: ContentType;
+  type: ScoreChangeType;
   index: number;
   id: number;
 }

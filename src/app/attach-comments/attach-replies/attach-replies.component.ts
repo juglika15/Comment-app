@@ -6,18 +6,18 @@ import {
   ActivityType,
   Reply,
   AddReply,
-  ReplyType,
+  ContentType,
+  DeleteContent,
+  ScoreChangeType,
+  ScoreChange,
 } from 'src/app/app.component.model';
-import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'app-attach-replies',
   templateUrl: './attach-replies.component.html',
   styleUrls: ['./attach-replies.component.scss'],
-  providers: [AppService],
 })
 export class AttachRepliesComponent {
-  constructor(private appService: AppService) {}
   @Input() comments!: Array<Comment>;
   @Input() currentUser!: CurrentUser;
   @Input() comment!: Comment;
@@ -68,7 +68,7 @@ export class AttachRepliesComponent {
 
   addCommentReply() {
     this.addComReply.emit({
-      replyType: ReplyType.Commnet,
+      contentType: ContentType.Commnet,
       reply: this.replyCommentInput,
       replyingTo: this.activeSection!.replyingTo,
       index: -1,
@@ -80,7 +80,7 @@ export class AttachRepliesComponent {
 
   addReplyReply() {
     this.addRepReply.emit({
-      replyType: ReplyType.Reply,
+      contentType: ContentType.Reply,
       reply: this.replyReplyInput,
       replyingTo: this.activeSection!.replyingTo,
       index: this.activeSection!.index,
@@ -98,27 +98,56 @@ export class AttachRepliesComponent {
     );
   }
 
+  // emit edited content
   @Output() updatingReply = new EventEmitter<string>();
   updateReply(content: string) {
     this.updatingReply.emit(content);
     this.activeSection = null;
   }
 
-  deleteReply(reply: Reply) {
+  // attach delete input
+  deleteInput(reply: Reply) {
     return (
       this.activeSection?.type === ActivityType.Delete &&
       this.activeSection.id === reply.id
     );
   }
+
   cancelDelete() {
     this.activeSection = null;
   }
 
-  @Output() deletingReply = new EventEmitter<object>();
-  delete(id: number, index: number) {
-    this.deletingReply.emit({
-      id: id,
-      index: index,
+  // emit delete info
+  @Output() deleteReply = new EventEmitter<DeleteContent>();
+  delete() {
+    this.deleteReply.emit({
+      contentType: ContentType.Reply,
+      id: this.activeSection!.id,
+      index: this.activeSection!.index,
     });
+  }
+
+  // Score change
+
+  @Output() replyScoreChange = new EventEmitter<ScoreChange>();
+
+  scoreChangeType = ScoreChangeType;
+
+  scoreChange(
+    index: number,
+    score: number,
+    scoreChangeType: ScoreChangeType,
+    id: number
+  ) {
+    const item: ScoreChange = {
+      contentType: ContentType.Reply,
+      index: index,
+      type: ScoreChangeType.Plus,
+      id: id,
+    };
+    if (score && scoreChangeType === ScoreChangeType.Minus) {
+      item.type = ScoreChangeType.Minus;
+    }
+    this.replyScoreChange.emit(item);
   }
 }

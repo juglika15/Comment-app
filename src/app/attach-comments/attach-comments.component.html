@@ -1,8 +1,8 @@
 <div class="comment" *ngFor="let comment of comments; let i = index">
-  <button (click)="scoreDown(comment.score, i)">
+  <button (click)="commentScoreChange(i, comment.score, scoreChangeType.Minus)">
     <img src="../assets/images/icon-minus.svg" alt="minus" /></button
   ><span class="score">{{ comment.score }}</span
-  ><button (click)="scoreUp(i)">
+  ><button (click)="commentScoreChange(i, comment.score, scoreChangeType.Plus)">
     <img src="../assets/images/icon-plus.svg" alt="plus" />
   </button>
   <img
@@ -31,13 +31,13 @@
       <img src="../assets/images/icon-delete.svg" alt="reply icon" />
       Delete
     </button>
-    <div class="popup-container" *ngIf="deleteComment(comment)">
+    <div class="popup-container" *ngIf="deleteInput(comment)">
       <p>
         Are you sure you want to delete this comment? This will remove the
         comment and can't be undone.
       </p>
       <button (click)="cancelDelete()">No, Cancel</button>
-      <button (click)="deleteClick(i)">Yes, Delete</button>
+      <button (click)="deleteComment()">Yes, Delete</button>
     </div>
   </div>
   <div *ngIf="comment.user.username === currentUser.username">
@@ -60,11 +60,11 @@
     [comment]="comment"
     [activeSection]="activeSection"
     (unclick)="press($event)"
-    [commentIndex]="commentIndex"
+    [replyCommentInput]="replyCommentInput"
     (addComReply)="addingReply($event)"
     (addRepReply)="addingReply($event)"
-    [replyCommentInput]="replyCommentInput"
     (updatingReply)="updatingReply($event)"
-    (deletingReply)="deleteReply($event)"
+    (deleteReply)="deleteReply($event)"
+    (replyScoreChange)="replyScoreHandler($event)"
   ></app-attach-replies>
 </div>

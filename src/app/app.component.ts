@@ -5,7 +5,10 @@ import {
   AddReply,
   Comment,
   CurrentUser,
-  ReplyType,
+  ContentType,
+  DeleteContent,
+  ScoreChange,
+  ScoreChangeType,
 } from './app.component.model';
 
 @Component({
@@ -73,10 +76,10 @@ export class AppComponent {
         },
         replyingTo: item.replyingTo,
       };
-      if (item.replyType === ReplyType.Commnet) {
+      if (item.contentType === ContentType.Commnet) {
         this.comments[item.index].replies.push(replyObj);
       }
-      if (item.replyType === ReplyType.Reply) {
+      if (item.contentType === ContentType.Reply) {
         for (const comment of this.comments) {
           if (comment.replies[item.index]?.id === item.id) {
             comment.replies.push(replyObj);
@@ -94,28 +97,43 @@ export class AppComponent {
     }
   }
 
-  deleteHandler(index: number) {
-    this.comments.splice(index, 1);
-    this.updateLocalStorage();
-  }
-
-  deleteRepHandler(item: any) {
-    for (const comment of this.comments) {
-      if (comment.id === item.id) {
-        comment.replies.splice(item.index, 1);
+  deleteHandler(item: DeleteContent) {
+    if (item.contentType === ContentType.Commnet) {
+      this.comments.splice(item.index, 1);
+    }
+    if (item.contentType === ContentType.Reply) {
+      for (const comment of this.comments) {
+        if (comment.replies[item.index]?.id === item.id) {
+          comment.replies.splice(item.index, 1);
+        }
       }
     }
     this.updateLocalStorage();
   }
 
-  scoreMinusHandler(index: number) {
-    this.comments[index].score--;
-    this.comments.sort((a: Comment, b: Comment) => b.score - a.score);
-    this.updateLocalStorage();
-  }
-  scorePlusHandler(index: number) {
-    this.comments[index].score++;
-    this.comments.sort((a: Comment, b: Comment) => b.score - a.score);
+  scoreChangeHandler(item: ScoreChange) {
+    if (item.contentType === ContentType.Reply) {
+      for (const comment of this.comments) {
+        if (comment.replies[item.index]?.id === item.id) {
+          if (item.type === ScoreChangeType.Minus) {
+            comment.replies[item.index].score--;
+          }
+          if (item.type === ScoreChangeType.Plus) {
+            comment.replies[item.index].score++;
+          }
+        }
+      }
+    }
+
+    if (item.contentType === ContentType.Commnet) {
+      if (item.type === ScoreChangeType.Minus) {
+        this.comments[item.index].score--;
+      }
+      if (item.type === ScoreChangeType.Plus) {
+        this.comments[item.index].score++;
+      }
+      this.comments.sort((a: Comment, b: Comment) => b.score - a.score);
+    }
     this.updateLocalStorage();
   }
 }
