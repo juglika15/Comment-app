@@ -10,12 +10,15 @@ import {
   ScoreChangeType,
   ScoreChange,
 } from '../app.component.model';
+import { AppService } from '../app.service';
 @Component({
   selector: 'app-attach-comments',
   templateUrl: './attach-comments.component.html',
   styleUrls: ['./attach-comments.component.scss'],
+  providers: [AppService],
 })
 export class AttachCommentsComponent {
+  constructor(public appServervice: AppService) {}
   @Input() comments!: Array<Comment>;
   @Input() currentUser!: CurrentUser;
 

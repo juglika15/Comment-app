@@ -46,7 +46,9 @@
       Edit
     </button>
   </div>
-  <div class="time">{{ comment.createdAt }}</div>
+  <div class="time">
+    {{ appServervice.getTimeDifference(comment.createdAt, comment.id) }}
+  </div>
   <div *ngIf="!editComment(comment)">
     <p class="content">{{ comment.content }}</p>
   </div>

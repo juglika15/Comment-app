@@ -55,7 +55,9 @@
         Edit
       </button>
     </div>
-    <div class="time">{{ reply.createdAt }}</div>
+    <div class="time">
+      {{ appService.getTimeDifference(reply.createdAt, reply.id) }}
+    </div>
     <div *ngIf="!editReply(reply, comment)">
       <p class="content">{{ reply.content }}</p>
     </div>

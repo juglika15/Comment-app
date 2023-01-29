@@ -39,12 +39,14 @@ export class AppComponent {
     console.log(this.comments);
   }
 
+  timestamp = new Date();
+
   addCommentHandler(input: string) {
     if (input) {
       this.comments.push({
         id: this.idCounter,
         content: input,
-        createdAt: 'now',
+        createdAt: this.timestamp.toLocaleString(),
         score: 0,
         user: {
           image: {
@@ -65,7 +67,7 @@ export class AppComponent {
       const replyObj = {
         id: this.idCounter,
         content: item.reply,
-        createdAt: 'now',
+        createdAt: this.timestamp.toLocaleString(),
         score: 0,
         user: {
           image: {
