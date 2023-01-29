@@ -4,6 +4,8 @@ import {
   CurrentUser,
   ActiveSection,
   ActivityType,
+  AddReply,
+  ReplyType,
 } from '../app.component.model';
 @Component({
   selector: 'app-attach-comments',
@@ -14,20 +16,20 @@ export class AttachCommentsComponent {
   @Input() comments!: Array<Comment>;
   @Input() currentUser!: CurrentUser;
 
-  @Output() addCommentReply = new EventEmitter<object>();
-  @Output() addReplyReply = new EventEmitter<any>();
   @Output() updateComment = new EventEmitter<string>();
 
   activeSection: ActiveSection | null = null;
   activityType = ActivityType;
 
-  commentIndex = -10;
+  replyCommentInput: string = '';
+
+  // hide unclicked inputs
+  commentIndex = -Infinity;
   press(index: number) {
     this.commentIndex = index;
   }
 
-  replyCommentInput: string = '';
-
+  // attach reply inputs
   btnClick(type: ActivityType, comment: Comment, index: number) {
     this.activeSection = {
       type: type,
@@ -38,16 +40,19 @@ export class AttachCommentsComponent {
     this.replyCommentInput = `@${comment.user.username} `;
   }
 
-  addComReply(item: object) {
-    this.addCommentReply.emit({ item: item, index: this.activeSection?.index });
+  // Emit Reply input
+  @Output() addReply = new EventEmitter<AddReply>();
+
+  addingReply(item: AddReply) {
+    if (item.replyType === ReplyType.Commnet) {
+      item.index = this.activeSection!.index;
+    }
+    this.addReply.emit(item);
     this.activeSection = null;
     this.replyCommentInput = '';
   }
 
-  addRepReply(item: any) {
-    this.addReplyReply.emit(item);
-  }
-
+  // attach edit input
   editComment(comment: Comment) {
     return (
       this.activeSection?.type === ActivityType.Edit &&

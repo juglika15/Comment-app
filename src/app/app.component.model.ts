@@ -43,3 +43,16 @@ export interface ActiveSection {
   replyingTo: string;
   index: number;
 }
+
+export enum ReplyType {
+  Reply = 'Reply',
+  Commnet = 'Comment',
+}
+
+export interface AddReply {
+  replyType: ReplyType;
+  reply: string;
+  replyingTo: string;
+  index: number;
+  id: number;
+}

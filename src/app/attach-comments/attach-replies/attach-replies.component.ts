@@ -5,6 +5,8 @@ import {
   ActiveSection,
   ActivityType,
   Reply,
+  AddReply,
+  ReplyType,
 } from 'src/app/app.component.model';
 import { AppService } from 'src/app/app.service';
 
@@ -23,16 +25,15 @@ export class AttachRepliesComponent {
   @Input() activeSection!: ActiveSection | null;
   activityType = ActivityType;
 
-  @Output() addComReply = new EventEmitter<object>();
-  @Output() addRepReply = new EventEmitter<object>();
+  // Reply Inputs
   @Input() replyCommentInput!: string;
+  replyReplyInput: string = '';
 
-  // to fide unclicked inputs
+  // hide unclicked inputs
   @Output() unclick = new EventEmitter<number>();
   @Input() commentIndex!: number;
 
-  replyReplyInput: string = '';
-
+  // Button click in section
   btnClick(type: ActivityType, reply: Reply, index: number, comment: Comment) {
     this.activeSection = {
       type: type,
@@ -45,6 +46,7 @@ export class AttachRepliesComponent {
     this.unclick.emit(this.comments.indexOf(comment));
   }
 
+  // attach reply inputs
   replyComment() {
     return (
       this.activeSection?.type === ActivityType.Reply &&
@@ -60,27 +62,36 @@ export class AttachRepliesComponent {
     );
   }
 
+  // Emit Reply inputs
+
+  @Output() addComReply = new EventEmitter<AddReply>();
+
   addCommentReply() {
     this.addComReply.emit({
+      replyType: ReplyType.Commnet,
       reply: this.replyCommentInput,
-      replyingTo: this.activeSection?.replyingTo,
+      replyingTo: this.activeSection!.replyingTo,
+      index: -1,
+      id: this.activeSection!.id,
     });
   }
 
+  @Output() addRepReply = new EventEmitter<AddReply>();
+
   addReplyReply() {
     this.addRepReply.emit({
+      replyType: ReplyType.Reply,
       reply: this.replyReplyInput,
-      replyingTo: this.activeSection?.replyingTo,
-      index: this.activeSection?.index,
-      id: this.activeSection?.id,
+      replyingTo: this.activeSection!.replyingTo,
+      index: this.activeSection!.index,
+      id: this.activeSection!.id,
     });
     this.replyReplyInput = '';
     this.activeSection = null;
   }
 
+  // attach edit input
   editReply(reply: Reply) {
-    if (reply.id === this.activeSection?.id) {
-    }
     return (
       this.activeSection?.type === ActivityType.Edit &&
       this.activeSection.id === reply.id

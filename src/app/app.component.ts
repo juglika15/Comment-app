@@ -1,7 +1,12 @@
 import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import dataJSON from '../data.json';
-import { Comment, CurrentUser } from './app.component.model';
+import {
+  AddReply,
+  Comment,
+  CurrentUser,
+  ReplyType,
+} from './app.component.model';
 
 @Component({
   selector: 'app-root',
@@ -52,11 +57,11 @@ export class AppComponent {
     }
   }
 
-  addCommentReplyHandler(item: any) {
-    if (item.item.reply !== `@${item.item.replyingTo} `) {
-      this.comments[item.index].replies.push({
+  addReplyHandler(item: AddReply) {
+    if (item.reply !== `@${item.replyingTo} `) {
+      const replyObj = {
         id: this.idCounter,
-        content: item.item.reply,
+        content: item.reply,
         createdAt: 'now',
         score: 0,
         user: {
@@ -66,35 +71,20 @@ export class AppComponent {
           },
           username: this.currentUser.username,
         },
-        replyingTo: item.item.replyingTo,
-      });
-      this.idCounter++;
-      this.updateLocalStorage();
-    }
-  }
-
-  addReplyReplyHandler(item: any) {
-    if (item.reply !== `@${item.replyingTo} `) {
-      for (const comment of this.comments) {
-        if (comment.replies[item.index]?.id === item.id) {
-          comment.replies.push({
-            id: this.idCounter,
-            content: item.reply,
-            createdAt: 'now',
-            score: 0,
-            user: {
-              image: {
-                png: this.currentUser.image.png,
-                webp: this.currentUser.image.webp,
-              },
-              username: this.currentUser.username,
-            },
-            replyingTo: item.replyingTo,
-          });
-          this.idCounter++;
-          this.updateLocalStorage();
+        replyingTo: item.replyingTo,
+      };
+      if (item.replyType === ReplyType.Commnet) {
+        this.comments[item.index].replies.push(replyObj);
+      }
+      if (item.replyType === ReplyType.Reply) {
+        for (const comment of this.comments) {
+          if (comment.replies[item.index]?.id === item.id) {
+            comment.replies.push(replyObj);
+          }
         }
       }
+      this.idCounter++;
+      this.updateLocalStorage();
     }
   }
 

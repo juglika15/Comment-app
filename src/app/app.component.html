@@ -1,8 +1,7 @@
 <app-attach-comments
   [comments]="comments"
   [currentUser]="currentUser"
-  (addCommentReply)="addCommentReplyHandler($event)"
-  (addReplyReply)="addReplyReplyHandler($event)"
+  (addReply)="addReplyHandler($event)"
   (updateComment)="updateTextHandler($event)"
   (updateReply)="updateTextHandler($event)"
   (delete)="deleteHandler($event)"
