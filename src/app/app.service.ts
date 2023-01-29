@@ -6,13 +6,10 @@ import { Injectable } from '@angular/core';
 export class AppService {
   date: any = new Date();
 
-  ngOnInit() {
+  getTimeDifference(creditedAt: string, id: number) {
     setInterval(() => {
       this.date = new Date();
     }, 60000);
-  }
-
-  getTimeDifference(creditedAt: string, id: number) {
     if (id > 6) {
       const time: any = new Date(creditedAt);
       if ((this.date - time) / (1000 * 60) < 1) {
