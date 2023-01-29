@@ -19,7 +19,7 @@ export class AppComponent {
   );
 
   idCounter: number = JSON.parse(
-    localStorage.getItem('idCounter') || JSON.stringify(5)
+    localStorage.getItem('idCounter') || JSON.stringify(7)
   );
 
   updateLocalStorage() {
@@ -115,6 +115,7 @@ export class AppComponent {
         comment.replies.splice(item.index, 1);
       }
     }
+    this.updateLocalStorage();
   }
 
   scoreMinusHandler(index: number) {

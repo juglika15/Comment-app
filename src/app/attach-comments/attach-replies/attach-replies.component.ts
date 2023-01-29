@@ -6,13 +6,16 @@ import {
   ActivityType,
   Reply,
 } from 'src/app/app.component.model';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'app-attach-replies',
   templateUrl: './attach-replies.component.html',
   styleUrls: ['./attach-replies.component.scss'],
+  providers: [AppService],
 })
 export class AttachRepliesComponent {
+  constructor(private appService: AppService) {}
   @Input() comments!: Array<Comment>;
   @Input() currentUser!: CurrentUser;
   @Input() comment!: Comment;
@@ -22,11 +25,15 @@ export class AttachRepliesComponent {
 
   @Output() addComReply = new EventEmitter<object>();
   @Output() addRepReply = new EventEmitter<object>();
-  @Input() replyComentInput!: string;
+  @Input() replyCommentInput!: string;
+
+  // to fide unclicked inputs
+  @Output() unclick = new EventEmitter<number>();
+  @Input() commentIndex!: number;
 
   replyReplyInput: string = '';
 
-  btnClick(type: ActivityType, reply: Reply, index: number) {
+  btnClick(type: ActivityType, reply: Reply, index: number, comment: Comment) {
     this.activeSection = {
       type: type,
       id: reply.id,
@@ -35,29 +42,27 @@ export class AttachRepliesComponent {
     };
 
     this.replyReplyInput = `@${reply.user.username} `;
+    this.unclick.emit(this.comments.indexOf(comment));
   }
 
   replyComment() {
-    if (this.comment.id === this.activeSection?.id) {
-    }
     return (
       this.activeSection?.type === ActivityType.Reply &&
       this.activeSection.id === this.comment.id
     );
   }
 
-  replyReply(reply: Reply) {
-    if (reply.id === this.activeSection?.id) {
-    }
+  replyReply(reply: Reply, comment: Comment) {
     return (
       this.activeSection?.type === ActivityType.Reply &&
-      this.activeSection.id === reply.id
+      this.activeSection.id === reply.id &&
+      this.comments.indexOf(comment) === this.commentIndex
     );
   }
 
   addCommentReply() {
     this.addComReply.emit({
-      reply: this.replyComentInput,
+      reply: this.replyCommentInput,
       replyingTo: this.activeSection?.replyingTo,
     });
   }

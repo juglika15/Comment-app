@@ -1,6 +1,6 @@
 <div *ngIf="replyComment()" class="reply">
   <img src="{{ currentUser.image.webp }}" alt="" />
-  <input type="text" [(ngModel)]="replyComentInput" />
+  <input type="text" [(ngModel)]="replyCommentInput" />
   <button (click)="addCommentReply()">Reply</button>
 </div>
 <div *ngIf="comment.replies.length">
@@ -16,7 +16,7 @@
     <div *ngIf="reply.user.username !== currentUser.username">
       <button
         class="btn-reply"
-        (click)="btnClick(activityType.Reply, reply, i)"
+        (click)="btnClick(activityType.Reply, reply, i, comment)"
       >
         <img src="../assets/images/icon-reply.svg" alt="reply icon" />
         Reply
@@ -25,7 +25,7 @@
     <div *ngIf="reply.user.username === currentUser.username">
       <button
         class="btn-delete"
-        (click)="btnClick(activityType.Delete, reply, i)"
+        (click)="btnClick(activityType.Delete, reply, i, comment)"
       >
         <img src="../assets/images/icon-delete.svg" alt="delete icon" />
         Delete
@@ -40,7 +40,10 @@
       </div>
     </div>
     <div *ngIf="reply.user.username === currentUser.username">
-      <button class="btn-edit" (click)="btnClick(activityType.Edit, reply, i)">
+      <button
+        class="btn-edit"
+        (click)="btnClick(activityType.Edit, reply, i, comment)"
+      >
         <img src="../assets/images/icon-edit.svg" alt="edit icon" />
         Edit
       </button>
@@ -53,7 +56,7 @@
       <input type="text" [(ngModel)]="reply.content" />
       <button (click)="updateReply(reply.content)">Update</button>
     </div>
-    <div *ngIf="replyReply(reply)" class="reply repreply">
+    <div *ngIf="replyReply(reply, comment)" class="reply repreply">
       <img src="{{ currentUser.image.webp }}" alt="" />
       <input type="text" [(ngModel)]="replyReplyInput" />
       <button (click)="addReplyReply()">Reply</button>

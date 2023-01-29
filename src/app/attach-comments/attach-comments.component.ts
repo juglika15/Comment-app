@@ -21,7 +21,12 @@ export class AttachCommentsComponent {
   activeSection: ActiveSection | null = null;
   activityType = ActivityType;
 
-  replyComentInput: string = '';
+  commentIndex = -10;
+  press(index: number) {
+    this.commentIndex = index;
+  }
+
+  replyCommentInput: string = '';
 
   btnClick(type: ActivityType, comment: Comment, index: number) {
     this.activeSection = {
@@ -30,14 +35,13 @@ export class AttachCommentsComponent {
       replyingTo: comment.user.username,
       index: index,
     };
-
-    this.replyComentInput = `@${comment.user.username} `;
+    this.replyCommentInput = `@${comment.user.username} `;
   }
 
   addComReply(item: object) {
     this.addCommentReply.emit({ item: item, index: this.activeSection?.index });
     this.activeSection = null;
-    this.replyComentInput = '';
+    this.replyCommentInput = '';
   }
 
   addRepReply(item: any) {

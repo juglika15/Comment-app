@@ -59,9 +59,11 @@
     [currentUser]="currentUser"
     [comment]="comment"
     [activeSection]="activeSection"
+    (unclick)="press($event)"
+    [commentIndex]="commentIndex"
     (addComReply)="addComReply($event)"
     (addRepReply)="addRepReply($event)"
-    [replyComentInput]="replyComentInput"
+    [replyCommentInput]="replyCommentInput"
     (updatingReply)="updatingReply($event)"
     (deletingReply)="deleteReply($event)"
   ></app-attach-replies>

@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Comment, CurrentUser } from '../app.component.model';
 
 @Component({
   selector: 'app-add-comment',
