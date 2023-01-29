@@ -47,10 +47,11 @@ export class AttachRepliesComponent {
   }
 
   // attach reply inputs
-  replyComment() {
+  replyComment(comment: Comment) {
     return (
       this.activeSection?.type === ActivityType.Reply &&
-      this.activeSection.id === this.comment.id
+      this.activeSection.id === this.comment.id &&
+      this.comments.indexOf(comment) === this.commentIndex
     );
   }
 
@@ -139,15 +140,21 @@ export class AttachRepliesComponent {
     scoreChangeType: ScoreChangeType,
     id: number
   ) {
-    const item: ScoreChange = {
-      contentType: ContentType.Reply,
-      index: index,
-      type: ScoreChangeType.Plus,
-      id: id,
-    };
-    if (score && scoreChangeType === ScoreChangeType.Minus) {
-      item.type = ScoreChangeType.Minus;
+    if (scoreChangeType === ScoreChangeType.Plus) {
+      this.replyScoreChange.emit({
+        contentType: ContentType.Reply,
+        index: index,
+        type: ScoreChangeType.Plus,
+        id: id,
+      });
     }
-    this.replyScoreChange.emit(item);
+    if (score && scoreChangeType === ScoreChangeType.Minus) {
+      this.replyScoreChange.emit({
+        contentType: ContentType.Reply,
+        index: index,
+        type: ScoreChangeType.Minus,
+        id: id,
+      });
+    }
   }
 }

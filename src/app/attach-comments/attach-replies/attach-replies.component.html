@@ -1,4 +1,4 @@
-<div *ngIf="replyComment()" class="reply">
+<div *ngIf="replyComment(comment)" class="reply">
   <img src="{{ currentUser.image.webp }}" alt="" />
   <input type="text" [(ngModel)]="replyCommentInput" />
   <button (click)="addCommentReply()">Reply</button>

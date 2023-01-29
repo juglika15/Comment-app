@@ -27,8 +27,8 @@ export class AttachCommentsComponent {
   replyCommentInput: string = '';
 
   // hide unclicked inputs
-  commentIndex = -Infinity;
-  press(index: number) {
+  commentIndex = -1;
+  unclick(index: number) {
     this.commentIndex = index;
   }
 
@@ -40,6 +40,7 @@ export class AttachCommentsComponent {
       replyingTo: comment.user.username,
       index: index,
     };
+    this.commentIndex = index;
     this.replyCommentInput = `@${comment.user.username} `;
   }
 
@@ -110,16 +111,22 @@ export class AttachCommentsComponent {
     score: number,
     scoreChangeType: ScoreChangeType
   ) {
-    const item: ScoreChange = {
-      contentType: ContentType.Commnet,
-      index: index,
-      type: ScoreChangeType.Plus,
-      id: -1,
-    };
-    if (score && scoreChangeType === ScoreChangeType.Minus) {
-      item.type = ScoreChangeType.Minus;
+    if (scoreChangeType === ScoreChangeType.Plus) {
+      this.scoreChange.emit({
+        contentType: ContentType.Commnet,
+        index: index,
+        type: ScoreChangeType.Plus,
+        id: -1,
+      });
     }
-    this.scoreChange.emit(item);
+    if (score && scoreChangeType === ScoreChangeType.Minus) {
+      this.scoreChange.emit({
+        contentType: ContentType.Commnet,
+        index: index,
+        type: ScoreChangeType.Minus,
+        id: -1,
+      });
+    }
   }
 
   replyScoreHandler(item: ScoreChange) {
