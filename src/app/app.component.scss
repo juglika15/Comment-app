@@ -1,0 +1,8 @@
+@import "./style/variables";
+
+.body {
+  display: flex;
+  flex-direction: column;
+  background-color: $light-gray;
+  align-items: center;
+}

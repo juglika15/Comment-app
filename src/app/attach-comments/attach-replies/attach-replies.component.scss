@@ -1,22 +1,46 @@
+@import "../../style/variables";
+
 .reply {
-  border: 3px solid green;
-  padding: 0;
-  margin: 40px;
+  font-family: "Manrope", sans-serif;
+  font-size: 1rem;
+  margin-left: 4rem;
+  max-width: 46rem;
+  grid-template-columns: repeat(7, 6rem);
+}
+
+.reply-section {
+  grid-column: 7/8;
+}
+
+.delete-section {
+  grid-column: 6/7;
+}
+
+.edit-section {
+  grid-column: 7/8;
+}
+
+.content {
+  grid-column: 2/8;
+}
+
+textarea {
+  grid-column: 2/7;
+}
+
+.submit-reply {
+  color: $White;
+  background-color: $moderate-blue;
+  width: 6rem;
+  height: 3rem;
+  border-radius: 0.4rem;
+  border: none;
+  &:hover {
+    background-color: $light-grayish-blue;
+  }
 }
 
 .popup-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 300px;
-  height: 150px;
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px gray;
-}
-input {
-  height: 5rem;
-  width: 40rem;
+  position: fixed;
+  left: 38%;
 }

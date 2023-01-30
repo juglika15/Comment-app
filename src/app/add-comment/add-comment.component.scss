@@ -1,19 +1,28 @@
-input {
-  width: 15rem;
+@import "../style/variables";
+
+.adder {
+  display: flex;
+  box-sizing: border-box;
+  margin-top: 2rem;
+  background-color: $White;
+  padding: 2rem;
+  height: 8rem;
+  gap: 1rem;
+  font-family: "Manrope", sans-serif;
+  border-radius: 0.8rem;
+}
+
+.adder button {
+  font-size: 1.5rem;
+
+  color: $White;
+  background-color: $moderate-blue;
+  width: 6rem;
   height: 3rem;
-}
+  border-radius: 0.4rem;
+  border: none;
 
-#input {
-  &::placeholder {
-    position: absolute;
-    top: 0;
-    left: 0;
-    pointer-events: none;
+  &:hover {
+    background-color: $light-grayish-blue;
   }
-}
-
-#input {
-  text-align: left;
-  padding-top: 0;
-  vertical-align: top;
 }

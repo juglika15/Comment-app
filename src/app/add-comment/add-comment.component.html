@@ -1,7 +1,12 @@
-<input
-  type="text"
-  placeholder="Add a coment.."
-  [(ngModel)]="input"
-  id="input"
-/>
-<button (click)="addComment()">send</button>
+<div class="adder">
+  <img src="../../assets/images/avatars/image-juliusomo.webp" alt="" />
+  <textarea
+    name=""
+    id=""
+    cols="75"
+    rows="4"
+    placeholder="Add a coment.."
+    [(ngModel)]="input"
+  ></textarea>
+  <button (click)="addComment()">send</button>
+</div>

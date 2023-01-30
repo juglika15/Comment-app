@@ -19,22 +19,7 @@
         },
         "username": "amyrobson"
       },
-      "replies": [
-        {
-          "id": 5,
-          "content": "სხვა",
-          "createdAt": "2 week ago",
-          "score": 2,
-          "replyingTo": "amyrobson",
-          "user": {
-            "image": {
-              "png": "../assets/images/avatars/image-maxblagun.png",
-              "webp": "../assets/images/avatars/image-maxblagun.webp"
-            },
-            "username": "maxblagun"
-          }
-        }
-      ]
+      "replies": []
     },
     {
       "id": 2,
@@ -75,20 +60,6 @@
               "webp": "../assets/images/avatars/image-juliusomo.webp"
             },
             "username": "juliusomo"
-          }
-        },
-        {
-          "id": 6,
-          "content": "კიდე სხვა",
-          "createdAt": "2 week ago",
-          "score": 2,
-          "replyingTo": "maxblagun",
-          "user": {
-            "image": {
-              "png": "../assets/images/avatars/image-amyrobson.png",
-              "webp": "../assets/images/avatars/image-amyrobson.webp"
-            },
-            "username": "amyrobson"
           }
         }
       ]

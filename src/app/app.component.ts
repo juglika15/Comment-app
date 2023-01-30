@@ -27,7 +27,7 @@ export class AppComponent {
   );
 
   idCounter: number = JSON.parse(
-    localStorage.getItem('idCounter') || JSON.stringify(7)
+    localStorage.getItem('idCounter') || JSON.stringify(5)
   );
 
   updateLocalStorage() {

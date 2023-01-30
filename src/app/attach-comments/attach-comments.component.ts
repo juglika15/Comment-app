@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
 import {
   Comment,
   CurrentUser,
@@ -16,6 +22,7 @@ import { AppService } from '../app.service';
   templateUrl: './attach-comments.component.html',
   styleUrls: ['./attach-comments.component.scss'],
   providers: [AppService],
+  encapsulation: ViewEncapsulation.None,
 })
 export class AttachCommentsComponent {
   constructor(public appServervice: AppService) {}
