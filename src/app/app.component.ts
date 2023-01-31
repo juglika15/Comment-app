@@ -36,7 +36,6 @@ export class AppComponent {
 
     localStorage.setItem('comments', JSON.stringify(this.comments));
     this.comments = JSON.parse(localStorage.getItem('comments')!);
-    console.log(this.comments);
   }
 
   timestamp = new Date();

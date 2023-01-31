@@ -21,7 +21,6 @@ import { AppService } from '../app.service';
   selector: 'app-attach-comments',
   templateUrl: './attach-comments.component.html',
   styleUrls: ['./attach-comments.component.scss'],
-  providers: [AppService],
   encapsulation: ViewEncapsulation.None,
 })
 export class AttachCommentsComponent {
@@ -127,7 +126,6 @@ export class AttachCommentsComponent {
         contentType: ContentType.Commnet,
         index: index,
         type: ScoreChangeType.Plus,
-        id: -1,
       });
     }
     if (score && scoreChangeType === ScoreChangeType.Minus) {
@@ -135,7 +133,6 @@ export class AttachCommentsComponent {
         contentType: ContentType.Commnet,
         index: index,
         type: ScoreChangeType.Minus,
-        id: -1,
       });
     }
   }

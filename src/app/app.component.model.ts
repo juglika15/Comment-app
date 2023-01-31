@@ -54,7 +54,7 @@ export interface AddReply {
   reply: string;
   replyingTo: string;
   index: number;
-  id: number;
+  id?: number;
 }
 
 export interface DeleteContent {
@@ -72,5 +72,5 @@ export interface ScoreChange {
   contentType: ContentType;
   type: ScoreChangeType;
   index: number;
-  id: number;
+  id?: number;
 }

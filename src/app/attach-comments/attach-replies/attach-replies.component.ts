@@ -17,10 +17,9 @@ import { AppService } from 'src/app/app.service';
   selector: 'app-attach-replies',
   templateUrl: './attach-replies.component.html',
   styleUrls: ['./attach-replies.component.scss'],
-  providers: [AppService],
 })
 export class AttachRepliesComponent {
-  constructor(public appService:AppService){}
+  constructor(public appService: AppService) {}
   @Input() comments!: Array<Comment>;
   @Input() currentUser!: CurrentUser;
   @Input() comment!: Comment;
@@ -76,7 +75,6 @@ export class AttachRepliesComponent {
       reply: this.replyCommentInput,
       replyingTo: this.activeSection!.replyingTo,
       index: -1,
-      id: this.activeSection!.id,
     });
   }
 
