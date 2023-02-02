@@ -81,11 +81,14 @@ export class AppComponent {
         this.comments[item.index].replies.push(replyObj);
       }
       if (item.contentType === ContentType.Reply) {
-        for (const comment of this.comments) {
-          if (comment.replies[item.index]?.id === item.id) {
-            comment.replies.push(replyObj);
-          }
-        }
+        this.comments
+          .find((comment) => comment.replies.find((reply) => reply?.id))
+          ?.replies.push(replyObj);
+        // for (const comment of this.comments) {
+        //   if (comment.replies[item.index]?.id === item.id) {
+        //     comment.replies.push(replyObj);
+        //   }
+        // }
       }
       this.idCounter++;
       this.updateLocalStorage();
@@ -103,11 +106,16 @@ export class AppComponent {
       this.comments.splice(item.index, 1);
     }
     if (item.contentType === ContentType.Reply) {
-      for (const comment of this.comments) {
-        if (comment.replies[item.index]?.id === item.id) {
-          comment.replies.splice(item.index, 1);
-        }
-      }
+      this.comments
+        .find((comment) =>
+          comment.replies.find((reply) => reply?.id === item.id)
+        )
+        ?.replies.splice(item.index, 1);
+      // for (const comment of this.comments) {
+      //   if (comment.replies[item.index]?.id === item.id) {
+      //     comment.replies.splice(item.index, 1);
+      //   }
+      // }
     }
     this.updateLocalStorage();
   }
