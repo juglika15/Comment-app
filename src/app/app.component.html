@@ -1,14 +1,10 @@
-<div class="body">
-  <app-attach-comments
-    [comments]="comments"
-    [currentUser]="currentUser"
-    (addReply)="addReplyHandler($event)"
-    (updateComment)="updateTextHandler($event)"
-    (updateReply)="updateTextHandler($event)"
-    (delete)="deleteHandler($event)"
-    (scoreChange)="scoreChangeHandler($event)"
-  ></app-attach-comments>
-  <app-add-comment
-    (addUserComment)="addCommentHandler($event)"
-  ></app-add-comment>
-</div>
+<app-attach-comments
+  [comments]="comments"
+  [currentUser]="currentUser"
+  (addReply)="addReplyHandler($event)"
+  (updateComment)="updateTextHandler($event)"
+  (updateReply)="updateTextHandler($event)"
+  (delete)="deleteHandler($event)"
+  (scoreChange)="scoreChangeHandler($event)"
+></app-attach-comments>
+<app-add-comment (addUserComment)="addCommentHandler($event)"></app-add-comment>
