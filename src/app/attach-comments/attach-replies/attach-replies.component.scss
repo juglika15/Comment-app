@@ -2,10 +2,10 @@
 
 .reply {
   font-family: "Manrope", sans-serif;
-  font-size: 1rem;
-  margin-left: 4rem;
-  max-width: 46rem;
-  grid-template-columns: repeat(7, 6rem);
+  font-size: 0.96rem;
+  margin-left: 3.84rem;
+  max-width: 44.16rem;
+  grid-template-columns: repeat(7, 5.76rem);
 }
 
 .reply-section {
@@ -31,9 +31,9 @@ textarea {
 .submit-reply {
   color: $White;
   background-color: $moderate-blue;
-  width: 6rem;
-  height: 3rem;
-  border-radius: 0.4rem;
+  width: 5.76rem;
+  height: 2.88rem;
+  border-radius: 0.384rem;
   border: none;
   &:hover {
     background-color: $light-grayish-blue;
