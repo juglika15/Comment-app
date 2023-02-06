@@ -133,15 +133,24 @@
       ></textarea>
       <button (click)="addReplyReply()" class="submit-reply">Reply</button>
     </div>
-    <div class="wrapper">
-      <div class="popup-container" *ngIf="deleteInput(reply)">
-        <h1>Delete comment</h1>
-        <p>
-          Are you sure you want to delete this comment? This will remove the
-          comment and can't be undone.
-        </p>
-        <button class="btn-cancel" (click)="cancelDelete()">NO, CANCEL</button>
-        <button class="btn-delete" (click)="delete()">YES, DELETE</button>
+
+    <div class="popup">
+      <div class="popup__container">
+        <div class="popup__content" *ngIf="deleteInput(reply)">
+          <h1 class="popup__title">Delete comment</h1>
+          <p class="popup__subtitle">
+            Are you sure you want to delete this comment? This will remove the
+            comment and can't be undone.
+          </p>
+          <div class="popup__btns">
+            <button class="popup__cancel" (click)="cancelDelete()">
+              NO, CANCEL
+            </button>
+            <button class="popup__delete" (click)="delete()">
+              YES, DELETE
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
