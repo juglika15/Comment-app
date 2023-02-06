@@ -2,7 +2,7 @@
 
 .reply {
   font-family: "Manrope", sans-serif;
-  font-size: 0.96rem;
+  font-size: 1rem;
   margin-left: 3.84rem;
   max-width: 44.16rem;
   grid-template-columns: repeat(7, 5.76rem);
@@ -40,7 +40,8 @@ textarea {
   }
 }
 
-.popup__content {
-  position: fixed;
-  left: 38%;
+.popup-content {
+  font-size: 1rem;
+
+  left: 39%;
 }

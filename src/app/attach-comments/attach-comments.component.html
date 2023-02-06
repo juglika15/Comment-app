@@ -128,23 +128,19 @@
       (replyScoreChange)="replyScoreHandler($event)"
     ></app-attach-replies>
 
-    <div class="popup">
-      <div class="popup__container">
-        <div class="popup__content" *ngIf="deleteInput(comment)">
-          <h1 class="popup__title">Delete comment</h1>
-          <p class="popup__subtitle">
-            Are you sure you want to delete this comment? This will remove the
-            comment and can't be undone.
-          </p>
-          <div class="popup__btns">
-            <button (click)="cancelDelete()" class="popup__cancel">
-              NO, CANCEL
-            </button>
-            <button (click)="deleteComment()" class="popup__delete">
-              YES, DELETE
-            </button>
-          </div>
-        </div>
+    <div class="popup" *ngIf="deleteInput(comment)">
+      <div class="popup-content">
+        <h1 class="popup-title">Delete comment</h1>
+        <p class="popup-subtitle">
+          Are you sure you want to delete this comment? This will remove the
+          comment and can't be undone.
+        </p>
+        <button (click)="cancelDelete()" class="popup-cancel">
+          NO, CANCEL
+        </button>
+        <button (click)="deleteComment()" class="popup-delete">
+          YES, DELETE
+        </button>
       </div>
     </div>
   </div>

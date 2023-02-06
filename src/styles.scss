@@ -7,7 +7,7 @@ body {
   background-color: $light-gray;
   align-items: center;
   min-height: 100vh;
-  font-size: 16px;
+  font-size: 1rem;
   font-family: "Manrope", sans-serif;
 }
 
@@ -18,7 +18,7 @@ body {
 }
 
 .comment {
-  font-size: 0.96rem;
+  font-size: 1rem;
 
   margin-top: 1.92rem;
   padding: 1.92rem;
@@ -179,49 +179,60 @@ body {
   grid-column: 2/9;
 }
 
-.popup__container {
+.popup {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-.popup__content {
-  position: fixed;
-  top: 30%;
-  width: 23.04rem;
-  height: 14.4rem;
-  background-color: white;
-  box-shadow: 0 0 0.96rem rgba(0, 0, 0, 0.25);
-  border-radius: 0.48rem;
-  padding: 1.44rem;
-  text-align: start;
-}
 
-.popup__title {
-  color: $dark-blue;
-}
-.popup__subtitle {
-  color: $grayish-blue;
-  padding-bottom: 0.6rem;
-}
+  &-content {
+    position: fixed;
+    top: 30%;
+    width: 23.04rem;
+    height: 14.4rem;
+    background-color: white;
+    box-shadow: 0 0 0.96rem rgba(0, 0, 0, 0.25);
+    border-radius: 0.48rem;
+    padding: 1.44rem;
+    text-align: start;
+  }
 
-.popup__content button {
-  text-align: center;
-  width: 10.56rem;
-  height: 2.4rem;
-  color: $White;
-  border: none;
-  font-weight: bold;
-  font-size: 1.056rem;
-  border-radius: 0.4rem;
-}
+  &-title {
+    color: $dark-blue;
+  }
+  &-subtitle {
+    color: $grayish-blue;
+    padding-bottom: 0.6rem;
+  }
 
-.popup__cancel {
-  background-color: $grayish-blue;
-  margin-right: 1.92rem;
-}
+  &-content button {
+    text-align: center;
+    width: 10.56rem;
+    height: 2.4rem;
+    color: $White;
+    border: none;
+    font-weight: bold;
+    font-size: 1.056rem;
+    border-radius: 0.4rem;
+  }
 
-.popup__delete {
-  background-color: $soft-red;
+  &-cancel {
+    background-color: $dark-blue;
+    margin-right: 1.92rem;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $grayish-blue;
+    }
+  }
+
+  &-delete {
+    background-color: $soft-red;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $pale-red;
+    }
+  }
 }
 
 textarea {
